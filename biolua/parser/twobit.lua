@@ -18,6 +18,31 @@ function read_integer(f)
 end
 
 
+-- Internal: Connecting bitwise operations:
+local band, lshift, rshift
+if type(jit) == 'table' then
+	band, lshift, rshift = bit.band, bit.lshift, bit.rshift
+elseif type(bit32) == 'table' then
+	band, lshift, rshift = bit32.band, bit32.lshift, bit32.rshift
+else
+	band = function(a, b)
+		local r, m, s = 0, 2^52
+		local oper = 4
+		repeat
+			s, a, b = a + b + m, a % m, b % m
+			r, m = r + m * oper % (s - a - b), m / 2
+		until m < 1
+		return r
+	end
+	lshift = function(a, b)
+		return a * (2 ^ b)
+	end
+	rshift = function(a, b)
+		return math.floor(a / (2 ^ b))
+	end
+end
+
+
 -- Reading from file:
 function Parser:read(name)
 	
@@ -71,15 +96,7 @@ function Parser:chr(name, start, finish)
 	file:seek('set', self.index[name])
 
 	-- Locals for speed-ups:
-	local band, lshift, rshift
 	local byte = string.byte
-	if type(jit) == 'table' then
-		band, lshift, rshift = bit.band, bit.lshift, bit.rshift
-		-- ^ LuaJIT bitwise operations.
-	else
-		band, lshift, rshift = bit32.band, bit32.lshift, bit32.rshift
-		-- ^ Lua 5.2 bitwise operations.
-	end
 	
 	-- Reading DNA size:
 	local dna_size = read_integer(file)

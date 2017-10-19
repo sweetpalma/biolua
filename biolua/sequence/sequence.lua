@@ -19,7 +19,7 @@ function Sequence:__init(sequence)
 			self.sequence = table.concat(sequence)
 		end
 	else 
-		error('Invalid sequence input: ' .. sequence, 2) 
+		error('Invalid sequence input: ' .. tostring(sequence), 2) 
 	end
 
 end
@@ -148,7 +148,11 @@ end
 
 -- Returns regular iterator of current Sequence:
 function Sequence:gmatch(...)
-	return self.__proto(self.sequence:gmatch(...))
+	local iter = self.sequence:gmatch(...)
+	return function()
+		local ns = iter()
+		return ns and self.__proto(ns) or nil
+	end
 end
 
 

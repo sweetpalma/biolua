@@ -174,5 +174,53 @@ function Sequence:composition()
 return result end
 
 
+-- Returns iterator window of defined size and step of current Sequence:
+function Sequence:window(size, step)
+	if not size then error('No window size is stated!', 2) end
+	local step = step or 1
+	local i = 1 - step
+	return function()
+		i = i + step
+		local triplet = self:sub(i, i + size - 1)
+		if i <= #self.sequence and #triplet == size then
+			return triplet
+		end
+	end
+end
+
+
+-- Returns new Sequence that contains randomized bases of current one:
+function Sequence:randomize(seed)
+
+	-- Preparing random generator:
+	math.randomseed(seed or os.time())
+
+	-- Preparing keys list:
+	local keys, composition = {}, self:composition()
+	for key, _ in pairs(composition) do
+		table.insert(keys, key)
+	end
+
+	-- Randomization:
+	local buf = {}
+	for i = 1, #self.sequence do
+		local base
+		repeat
+			local random_id = math.random(#keys)
+			local key = keys[random_id]
+			if composition[key] > 0 then
+				composition[key] = composition[key] - 1
+				base = key
+			end
+		until base
+		buf[i] = base
+	end
+
+	-- Done:
+	return self.__proto(table.concat(buf))
+
+end
+
+
 -- Packing:
 return Sequence

@@ -65,6 +65,12 @@ function Sequence.__add(one, two)
 end
 
 
+-- Alias to Sequence:__add:
+function Sequence.__concat(...)
+	return Sequence.__add(...)
+end
+
+
 -- Returns new Sequence, multiplied by N:
 function Sequence.__mul(one, two)
 	

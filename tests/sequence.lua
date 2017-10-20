@@ -1,11 +1,11 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- BioLua OOP system unit tests:
-describe('biolua.sequence.sequence', function()
+describe('biolua.sequence.common', function()
 
 	local Sequence
 
 	it('Successfully imports', function() 
-		Sequence = require 'biolua.sequence.sequence'
+		Sequence = require 'biolua.sequence.common'
 		assert.type('table', Sequence)
 	end)
 

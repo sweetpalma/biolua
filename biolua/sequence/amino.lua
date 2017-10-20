@@ -1,6 +1,6 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- Basic DNA/RNA interface:
-local Amino = require 'biolua.sequence.sequence':extend {__name = 'Amino'}
+local Amino = require 'biolua.sequence.common':extend {__name = 'Amino'}
 local Rosetta = require 'biolua.sequence.rosetta'
 
 

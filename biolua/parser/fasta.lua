@@ -1,6 +1,6 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- FASTA parser interface:
-local Parser  = (require 'biolua.parser.parser'):extend {__name = 'Fasta'}
+local Parser  = (require 'biolua.parser.common'):extend {__name = 'Fasta'}
 
 
 -- Reading from file:

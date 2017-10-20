@@ -1,6 +1,6 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- 2bit parser interface:
-local Parser = (require 'biolua.parser.parser'):extend {__name = 'Twobit'}
+local Parser = (require 'biolua.parser.common'):extend {__name = 'Twobit'}
 
 
 -- Internal: Turn list of bytes to int:

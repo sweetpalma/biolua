@@ -1,6 +1,6 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- GenBank parser interface:
-local Parser = (require 'biolua.parser.parser'):extend {__name = 'Genbank'}
+local Parser = (require 'biolua.parser.common'):extend {__name = 'Genbank'}
 
 
 -- Internal: Stripping unwanted spaces:

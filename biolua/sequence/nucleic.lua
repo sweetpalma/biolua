@@ -173,7 +173,7 @@ function Nucleic:visualize(mode)
 	if mode == 'plain' then
 		
 		-- Preparing header:
-		local result = '\nMain Cmp\n--------\n'
+		local result = 'Main Cmp\n--------\n'
 
 		-- Iterating:
 		for i = 1, #sequence do 

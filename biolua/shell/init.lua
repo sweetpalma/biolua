@@ -1,6 +1,7 @@
 -- Part of BioLua by SweetPalma, 2017. All rights reserved.
 -- Main BioLua Shell caller:
 local L_loaded, L  = pcall(require, 'linenoise')
+local biolua = require 'biolua.init'
 local demo = require 'biolua.shell.demo'
 
 
@@ -220,7 +221,13 @@ return function()
 
 	-- Preparing environment:
 	local env = setmetatable({
-		biolua = require 'biolua.init'
+		biolua  = biolua,
+		Object  = biolua.object,
+		Nucleic = biolua.sequence.Nucleic,
+		Amino   = biolua.sequence.Amino,
+		Fasta   = biolua.sequence.Fasta,
+		TwoBit  = biolua.sequence.TwoBit,
+		GenBank = biolua.sequence.GenBank
 	}, {__index = _G})
 
 	-- Preparing autocompletion:

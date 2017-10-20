@@ -96,6 +96,12 @@ function Sequence.__mul(one, two)
 end
 
 
+-- Alias to Sequence:__mul:
+function Sequence:rep(n)
+	return Sequence.__mul(self, n)
+end
+
+
 -- Returns result of comparation with another Sequence:
 function Sequence.__eq(one, two)
 	-- Note: Lua got very odd __eq call condition - read more:

@@ -29,7 +29,7 @@ local function describe(desc, method)
 
 	-- Validating result:
 	if not is_ok then
-		print('- Failed on: \n\t' .. result, '\n\n')
+		error('- Failed on: \n\t' .. result .. '\n\n', 2)
 	else print '' end
 	
 end
@@ -151,7 +151,8 @@ local function test_function(f)
 	-- Running and testing:
 	local is_ok, result = pcall(f)
 	if not is_ok then
-		error('Test unit execution error: ' .. tostring(result), 2)
+		print(tostring(result))
+		os.exit()
 	else return result end
 
 return is_ok end

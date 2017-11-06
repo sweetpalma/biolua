@@ -28,9 +28,13 @@ function Object.__call(self, ...)
 	local instance = copy(self)
 	instance.__id = id(instance)
 	instance.__proto = self
-	instance.__call = nil
 	instance.extend = nil
 	setmetatable(instance, instance)
+
+	-- Changing instance call:
+	instance.__call = function()
+		error('Instance of object can`t be called as a constructor again.', 2)
+	end
 
 	-- Calling initializer:
 	if instance.__init then
